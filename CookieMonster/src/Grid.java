@@ -1,120 +1,66 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Grid {
-	if (compareTo(this.peek()) != -1){ //use compareTo? idk??
 
-		//this is wrong yeah
+	private int[][] cookies;
+	private int cookieNum;
 
-	}
+	public Grid(String fileName, int row, int col) {
 
-	
-
-	for (int i = 0; i < cookies.length; i++) {
-
-		for (int j = 0; j < cookies[0].length; j++) {
-
-			if (cookies[i][j] != 1 && cookies[i][cookies.length + 1] !=1){
-
-				//if two ways possible
-
-				saveNum = cookies[i][j];
-
-				//proceed
-
-			}
-
-			if (cookies[i][j] != 1 || cookies[i][cookies.length + 1] !=1){
-
-				//if one way possible
-
-				numCookies = cookies[i][j];
-
-			}
-
-			if (cookies[i][j] == cookies[cookies.length][cookies.length]){
-
-				max = cookies[i][j];
-
-			}
-
-		}
-
-	}
-
-}
-
-
-
-//no what
-
-public int compareTo(int o){ //uh?
-
-	for (int i = 0; i < cookies.length; i++) {
-
-		for (int j = 0; j < cookies[0].length; j++) {
-
-			return (cookies[i][j] - o); 
-
-		}
-
-	}
-
-	return (cookies[0][0] - this.peek());  //idk
-
-}
-
-
-
-
-
-	public static void main(String[] args) {
-
-		if (args.length < 1) {
-
-			System.out.println("No file provided");
-
-			System.exit(1);
-
-		}
-
-
-
-		Scanner in = openFile(args[0]);
-
-		if (in == null) {
-
-			System.exit(1);
-
-		}
-
-		
-
-		CookieMonster myCookie = new CookieMonster(in);
-
-
-
-	}
-
-
-
-	public static Scanner openFile(String filename) { //file to Scanner object
-
-
-
-		File f = new File(filename);
-
-		Scanner input = null;
+		Scanner inputFile = null;
 
 		try {
-
-			input = new Scanner(f);
-
-		} catch (FileNotFoundException e) {
-
-			return null;
-
+			inputFile = new Scanner(new FileReader(fileName));
+		} catch (IOException ex) {
+			System.out.println("*** Cannot open " + fileName + " ***");
+			System.exit(1);
 		}
 
-		return input;
+		cookieNum = 0;
 
+		for (int i = 0; i < cookies.length; i++) {
+			for (int j = 0; j < cookies[0].length; j++) {
+
+			}
+
+		}
 	}
+
+	public int optimalPath(int row, int col) {
+		if (atOrigin(row, col)) {
+			return cookieNum;
+		//cookies plus optimal path
+		}
+		
+		if ()
+			
+	}
+
+	public boolean atOrigin(int row, int col) {
+		return (row == 0 && col == 0);
+	}
+
+	public boolean canGoLeft() {
+		return true;
+	}
+
+	public boolean canGoUp() {
+		return true;
+	}
+
+	public static Scanner openFile(String filename) { // file to Scanner object
+		File f = new File(filename);
+		Scanner input = null;
+		try {
+			input = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+		return input;
+	}
+
 }
