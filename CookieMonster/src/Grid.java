@@ -35,8 +35,20 @@ public class Grid {
 			return cookieNum;
 		//cookies plus optimal path
 		}
+		if (canGoLeft() && canGoUp()) {
+			return cookieNum + optimalPath(row, col);
+		}
 		
-		if ()
+		if (canGoLeft()) {
+			return cookieNum + optimalPath(row, col);
+		}
+		if (canGoUp()) {
+			return cookieNum + optimalPath(row, col);
+		}
+		else {
+			return cookieNum;
+		}
+		
 			
 	}
 
