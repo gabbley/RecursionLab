@@ -11,8 +11,6 @@ public class Grid {
 
 	public Grid(String fileName, int row, int col) {
 
-		Scanner inputFile = null;
-
 		try {
 			inputFile = new Scanner(new FileReader(fileName));
 		} catch (IOException ex) {
@@ -24,11 +22,12 @@ public class Grid {
 
 		for (int i = 0; i < cookies.length; i++) {
 			for (int j = 0; j < cookies[0].length; j++) {
-
+				cookies[i][j] = cookies[row][col];
 			}
 
 		}
 	}
+		Scanner inputFile = null;
 
 	public int optimalPath(int row, int col) {
 		if (atOrigin(row, col)) {
@@ -49,7 +48,6 @@ public class Grid {
 			return cookieNum;
 		}
 		
-			
 	}
 
 	public boolean atOrigin(int row, int col) {
@@ -57,6 +55,7 @@ public class Grid {
 	}
 
 	public boolean canGoLeft() {
+		
 		return true;
 	}
 
