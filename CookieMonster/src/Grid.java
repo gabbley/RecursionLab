@@ -17,9 +17,12 @@ public class Grid {
 
 	private static String fileName = "cookies.txt";
 
-	public Grid(String fileName, int row, int col) {
+	public Grid(String fileName, int r, int c) {
 
-		trackPath = new Stack<State>();
+		trackPath = new Stack<State>(); //how do i use lol
+		
+		this.row = r;
+		this.col = c;
 
 		try {
 			inputFile = new Scanner(new FileReader(fileName));
@@ -29,7 +32,7 @@ public class Grid {
 		}
 
 		cookieNum = 0;
-		cookieGrid = new int[10][10];
+		cookieGrid = new int[11][11];
 
 		for (int i = 0; i < cookieGrid.length; i++) {
 			for (int j = 0; j < cookieGrid[0].length; j++) {
@@ -43,17 +46,17 @@ public class Grid {
 	Scanner inputFile = null;
 
 	public static int optimalPath(int row, int col) {
-		if (atOrigin(row, col)) {
+		if (atOrigin()) {
 			return cookieNum;
 		}
-		if (canGoLeft(row, col) && canGoUp(row, col)) {
+		if (canGoLeft() && canGoUp()) {
 			goLeft(row, col); // go left by default
 			return cookieNum + optimalPath(row, col);
 		}
-		if (canGoLeft(row, col)) {
+		if (canGoLeft()) {
 			return cookieNum + optimalPath(row, col);
 		}
-		if (canGoUp(row, col)) {
+		if (canGoUp()) {
 			return cookieNum + optimalPath(row, col);
 		} else {
 			return cookieNum;
@@ -61,21 +64,21 @@ public class Grid {
 
 	}
 
-	public static boolean atOrigin(int row, int col) {
+	public static boolean atOrigin() {
 		return (row == 0 && col == 0);
 	}
 
-	public static boolean canGoLeft(int row, int col) {
+	public static boolean canGoLeft() {
 		boolean res = false;
-		if (checkBarrel(row, col) && cookieGrid[row + 1][col] == 0)
+		if (checkBarrel(row--, col))
 			res = true;
 
 		return res;
 	}
 
-	public static boolean canGoUp(int row, int col) {
+	public static boolean canGoUp() {
 		boolean res = false;
-		if (checkBarrel(row, col))
+		if (checkBarrel(row, col--))
 			 res = true;
 		return res;
 	}
@@ -93,7 +96,7 @@ public class Grid {
 	}
 
 	public static boolean checkBarrel(int row, int col) {
-		return (cookieGrid[row][col] != -1);
+		return (row != -1 && col != -1);
 	}
 
 	public static void updateCookies(int row, int col) {
