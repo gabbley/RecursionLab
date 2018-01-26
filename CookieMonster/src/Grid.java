@@ -10,13 +10,13 @@ public class Grid {
 
 	private int[][] cookieGrid;
 	private int cookieNum;
-	
+
 	private Stack<State> trackPath;
-	
+
 	private static String fileName = "cookies.txt";
 
 	public Grid(String fileName, int row, int col) {
-		
+
 		trackPath = new Stack<State>();
 
 		try {
@@ -32,33 +32,31 @@ public class Grid {
 		for (int i = 0; i < cookieGrid.length; i++) {
 			for (int j = 0; j < cookieGrid[0].length; j++) {
 				if (inputFile.hasNextInt())
-				cookieGrid[i][j] = inputFile.nextInt();
+					cookieGrid[i][j] = inputFile.nextInt();
 			}
 		}
-		
-		
+
 	}
-		Scanner inputFile = null;
+
+	Scanner inputFile = null;
 
 	public int optimalPath(int row, int col) {
 		if (atOrigin(row, col)) {
 			return cookieNum;
 		}
 		if (canGoLeft(row, col) && canGoUp(row, col)) {
-			goLeft(row, col); //go left by default
+			goLeft(row, col); // go left by default
 			return cookieNum + optimalPath(row, col);
 		}
-		
 		if (canGoLeft(row, col)) {
 			return cookieNum + optimalPath(row, col);
 		}
 		if (canGoUp(row, col)) {
 			return cookieNum + optimalPath(row, col);
-		}
-		else {
+		} else {
 			return cookieNum;
 		}
-		
+
 	}
 
 	public boolean atOrigin(int row, int col) {
@@ -66,31 +64,39 @@ public class Grid {
 	}
 
 	public boolean canGoLeft(int row, int col) {
-		if (checkBarrel(row, col) && cookieGrid[row+1][col])
-		return true;
+		boolean res = false;
+		if (checkBarrel(row, col) && cookieGrid[row + 1][col] == 0)
+			res = true;
+
+		return res;
 	}
 
 	public boolean canGoUp(int row, int col) {
-		return true;
+		boolean res = false;
+		if (checkBarrel(row, col))
+			 res = true;
+		return res;
 	}
-	
-	public void goLeft(int row, int col){
-		//move first
+
+	public void goLeft(int row, int col) {
+		// move first
+		row--;
 		updateCookies(row, col);
 	}
-	
-	public void goUp(int row, int col){
-		//move first
+
+	public void goUp(int row, int col) {
+		// move first
+		col--;
 		updateCookies(row, col);
 	}
-	
-	public boolean checkBarrel(int row, int col){
-		//if
-		
+
+	public boolean checkBarrel(int row, int col) {
+		// if
+
 		return (cookieGrid[row][col] != -1);
 	}
-	
-	public void updateCookies(int row, int col){
+
+	public void updateCookies(int row, int col) {
 		cookieNum += cookieGrid[row][col];
 	}
 
@@ -104,8 +110,8 @@ public class Grid {
 		}
 		return input;
 	}
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		Grid testGrid = new Grid(fileName, 11, 11);
 		System.out.println(testGrid.toString());
 	}
@@ -113,12 +119,12 @@ public class Grid {
 	@Override
 	public String toString() {
 		String s = "";
-		
+
 		for (int i = 0; i < cookieGrid.length; i++) {
 			for (int j = 0; j < cookieGrid[0].length; j++) {
-				s+=cookieGrid[i][j]+ "  ";
+				s += cookieGrid[i][j] + "  ";
 			}
-			s+= "\n";
+			s += "\n";
 		}
 		return s + "number of cookies: " + cookieNum;
 	}
