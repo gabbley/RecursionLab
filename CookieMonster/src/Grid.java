@@ -17,12 +17,14 @@ public class Grid {
 
 	private static String fileName = "cookies.txt";
 
+	
+	//send in file and coordinates to start
 	public Grid(String fileName, int r, int c) {
 
 		trackPath = new Stack<State>(); //how do i use lol
 		
-		this.row = r;
-		this.col = c;
+		row = r;
+		col = c;
 
 		try {
 			inputFile = new Scanner(new FileReader(fileName));
@@ -34,6 +36,7 @@ public class Grid {
 		cookieNum = 0;
 		cookieGrid = new int[11][11];
 
+		//fills the array (successful bc it prints?)
 		for (int i = 0; i < cookieGrid.length; i++) {
 			for (int j = 0; j < cookieGrid[0].length; j++) {
 				if (inputFile.hasNextInt())
@@ -44,10 +47,16 @@ public class Grid {
 	}
 
 	Scanner inputFile = null;
+	
+	public static int mostCookies(int cookies){
+		if (cookies > cookieNum)
+			cookieNum = cookies;
+		return cookieNum;
+	}
 
 	public static int optimalPath(int row, int col) {
 		if (atOrigin()) {
-			return cookieNum;
+			return cookieNum; //if path is completed, return final number of cookies
 		}
 		if (canGoLeft() && canGoUp()) {
 			goLeft(row, col); // go left by default
