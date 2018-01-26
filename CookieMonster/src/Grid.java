@@ -8,8 +8,10 @@ import java.util.Stack;
 
 public class Grid {
 
-	private int[][] cookieGrid;
-	private int cookieNum;
+	private static int[][] cookieGrid;
+	private static int cookieNum;
+	
+	private static int row, col;
 
 	private Stack<State> trackPath;
 
@@ -27,7 +29,7 @@ public class Grid {
 		}
 
 		cookieNum = 0;
-		cookieGrid = new int[11][11];
+		cookieGrid = new int[10][10];
 
 		for (int i = 0; i < cookieGrid.length; i++) {
 			for (int j = 0; j < cookieGrid[0].length; j++) {
@@ -40,7 +42,7 @@ public class Grid {
 
 	Scanner inputFile = null;
 
-	public int optimalPath(int row, int col) {
+	public static int optimalPath(int row, int col) {
 		if (atOrigin(row, col)) {
 			return cookieNum;
 		}
@@ -59,11 +61,11 @@ public class Grid {
 
 	}
 
-	public boolean atOrigin(int row, int col) {
+	public static boolean atOrigin(int row, int col) {
 		return (row == 0 && col == 0);
 	}
 
-	public boolean canGoLeft(int row, int col) {
+	public static boolean canGoLeft(int row, int col) {
 		boolean res = false;
 		if (checkBarrel(row, col) && cookieGrid[row + 1][col] == 0)
 			res = true;
@@ -71,14 +73,14 @@ public class Grid {
 		return res;
 	}
 
-	public boolean canGoUp(int row, int col) {
+	public static boolean canGoUp(int row, int col) {
 		boolean res = false;
 		if (checkBarrel(row, col))
 			 res = true;
 		return res;
 	}
 
-	public void goLeft(int row, int col) {
+	public static void goLeft(int row, int col) {
 		// move first
 		row--;
 		updateCookies(row, col);
@@ -90,13 +92,11 @@ public class Grid {
 		updateCookies(row, col);
 	}
 
-	public boolean checkBarrel(int row, int col) {
-		// if
-
+	public static boolean checkBarrel(int row, int col) {
 		return (cookieGrid[row][col] != -1);
 	}
 
-	public void updateCookies(int row, int col) {
+	public static void updateCookies(int row, int col) {
 		cookieNum += cookieGrid[row][col];
 	}
 
@@ -112,8 +112,9 @@ public class Grid {
 	}
 
 	public static void main(String[] args) {
-		Grid testGrid = new Grid(fileName, 11, 11);
+		Grid testGrid = new Grid(fileName, 10, 10);
 		System.out.println(testGrid.toString());
+		optimalPath(10, 10);
 	}
 
 	@Override
